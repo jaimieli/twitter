@@ -6,5 +6,5 @@ Technologies
 
 - Javascript, jQuery, socket.io (realtime updates)
 - Node.js
-- Express app generator
+- Express app generator (replaced Jade with Swig)
 - HTML5/CSS3/Bootstrap
