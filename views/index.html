@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+<!-- you're defining a block below named content -->
+<!-- block content is defined in the layout -->
+<!-- everything extends is applied first
+then you'll cascade down and override wherever applicable -->
+
+{% block content %}
+
+  <div class="page-header">
+    {% if heading %}
+      <h1>{{heading}}</h1>
+    {% else %}
+      <h1>Welcome to Twitter.js!</h1>
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <img width = "50px" height = "50px" src="http://photos4.meetupstatic.com/photos/member/d/5/9/a/member_162354682.jpeg"><br>
+      <b>Jaimie Li</b><br>
+      100 followers
+    </div>
+      {% if show_form %}
+<!--         /submit is the route
+        POST request -->
+        <!-- action happens when the form is submitted -->
+       <!--  route will catch the request here at the URL and extract the info you need -->
+        <form action="/submit" method="POST">
+          <!-- label for and id should match -->
+          <!-- checkbox example -->
+          <!-- name field is VERY important
+          name field is what the server will get as the name of the data -->
+          <!-- id is what CSS will use to style this element -->
+          <label for="name_field">Name:</label>
+          <input name="name" type="text" id="name_field" {% if name %} value="{{name}}"{% endif %} placeholder="Your Name"/>
+
+          <label for="text_field">Tweet:</label>
+          <input name="tweet" type="text" id="text_field" style="width: 350px;" />
+
+          <input type="submit" value="Submit" class="btn btn-danger"/>
+        </form>
+      </br>
+      {% endif %}
+    <div class="col-md-9">
+
+
+      <!-- display tweets here -->
+      <!-- like a forEach loop through tweets -->
+      {% for tweet in tweets %}
+        <div class='tweetbox'>
+          <img src="http://lorempixel.com/48/48?name={{tweet.name}}">
+          <div class = 'content'>
+            <div class = 'by'>{{tweet.name}}</div>
+            <div>{{tweet.text}} - <a href ="/users/{{tweet.name}}">{{tweet.name}}</a></div>
+            <div><a href = "#">Re-tweet</a>, <a href="/users/{{tweet.name}}/tweets/{{tweet.id}}">Permalink</a></div>
+          </div>
+        </div>
+      {% endfor %}
+      <div id='newtweets'></div>
+    </div>
+  </div>
+
+{% endblock %}
